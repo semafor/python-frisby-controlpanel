@@ -5,11 +5,8 @@ env:
 python:
   - "2.7"
 install:
-  - pip show setuptools
-  - pip install --upgrade pip setuptools
-  - pip show setuptools
-  - pip --version
-  - pip install .
+  - pip install --upgrade pip setuptools distutils
   - pip install dbus-python
+  - pip install .
 script:
   - python setup.py test
