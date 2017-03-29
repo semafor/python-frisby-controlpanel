@@ -1,11 +1,11 @@
 language: python
+env:
+  global:
+    - PYTHONPATH=$PYTHONPATH:/usr/lib/python2.7/dist-packages/
 python:
   - "2.7"
 install:
   - pip install .
+  - pip install dbus-python
 script:
   - python setup.py test
-addons:
-  apt:
-    packages:
-      - python-dbus
