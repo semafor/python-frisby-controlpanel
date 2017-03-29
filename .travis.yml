@@ -4,8 +4,9 @@ env:
     - PYTHONPATH=$PYTHONPATH:/usr/lib/python2.7/dist-packages/
 python:
   - "2.7"
+dist: trusty
 install:
-  - pip install --upgrade pip setuptools distutils
+  - pip install --upgrade pip setuptools
   - pip install dbus-python
   - pip install .
 script:
