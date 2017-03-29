@@ -1,7 +1,4 @@
 language: python
-env:
-  global:
-    - PYTHONPATH=.
 python:
   - "2.7"
 install:
