@@ -1,14 +1,13 @@
 language: python
-env:
-  global:
-    - PYTHONPATH=$PYTHONPATH:/usr/lib/python2.7/dist-packages/
 python:
   - "2.7"
-dist: trusty
 install:
-  - pip install --upgrade pip setuptools
-  - pip install --upgrade distribute
-  - pip install dbus-python
   - pip install .
 script:
   - python setup.py test
+addons:
+  apt:
+    packages:
+      - python-dbus
+virtualenv:
+  system_site_packages: true
