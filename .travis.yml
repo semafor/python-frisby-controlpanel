@@ -5,7 +5,7 @@ env:
 python:
   - "2.7"
 install:
+  - pip install --upgrade pip dbus-python
   - pip install .
-  - pip install dbus-python
 script:
   - python setup.py test
