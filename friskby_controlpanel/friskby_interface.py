@@ -133,8 +133,6 @@ class FriskbyInterface():
             args = args + ["--lines", str(limit)]
 
         try:
-            print("using args,", args)
-            sys.stdout.flush()
             output = subprocess.check_output(args)
         except subprocess.CalledProcessError as e:
             """This means we got a non-zero exit code from journalctl. We can
@@ -145,11 +143,7 @@ class FriskbyInterface():
                                                       e.output))
             sys.stdout.flush()
         else:  # No process error, so let's take a look at the output
-            print("output", output.split("\n"))
-            sys.stdout.flush()
             for line in output.split("\n"):
-                print("line", line)
-                sys.stdout.flush()
                 if line != "":
                     js = json.loads(line)
                     lines.append(js)
