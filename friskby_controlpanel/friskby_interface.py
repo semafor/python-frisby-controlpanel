@@ -93,7 +93,7 @@ class FriskbyInterface():
         unit = self._service_to_unit(service)
 
         if service is None:
-            raise ValueError('%s is not a pertinent service.' % service)
+            raise KeyError('%s is not a pertinent service.' % service)
 
         status = self.systemd.get_unit_status(unit)
         try:
@@ -115,7 +115,7 @@ class FriskbyInterface():
         unit = self._service_to_unit(service)
 
         if service is None:
-            raise ValueError('%s is not a pertinent service.' % service)
+            raise KeyError('%s is not a pertinent service.' % service)
 
         output = None
         lines = []
@@ -128,11 +128,13 @@ class FriskbyInterface():
         ]
 
         if limit is None:
-            args + ["--lines", "all"]
+            args = args + ["--lines", "all"]
         else:
-            args + ["--lines", limit]
+            args = args + ["--lines", str(limit)]
 
         try:
+            print("using args,", args)
+            sys.stdout.flush()
             output = subprocess.check_output(args)
         except subprocess.CalledProcessError as e:
             """This means we got a non-zero exit code from journalctl. We can
@@ -143,9 +145,14 @@ class FriskbyInterface():
                                                       e.output))
             sys.stdout.flush()
         else:  # No process error, so let's take a look at the output
-            for line in output:
-                js = json.loads(line)
-                lines.append(js)
+            print("output", output.split("\n"))
+            sys.stdout.flush()
+            for line in output.split("\n"):
+                print("line", line)
+                sys.stdout.flush()
+                if line != "":
+                    js = json.loads(line)
+                    lines.append(js)
 
         lines.reverse()
         return lines
